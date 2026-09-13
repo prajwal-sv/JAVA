@@ -1,41 +1,60 @@
 package Assignment_3;
 
- class Rectangle{
-        int Length ;
-        int Width ;
+import java.util.Scanner;
 
-    Rectangle(int Length , int Width){
+import Assignment_1.sum;
 
-            this.Length =  Length;
-            this.Width = Width;
-
-
-        }
-
-    public float calculateArea(){
-            return  Length*Width;
+class BMI{
+    private  double height , weight ;
+    BMI(double height,double weight){
+        this.height = height;
+        this.weight = weight ;
 
     }
-    public float calculatePerimeter(){
-
-        return 2*(Length+Width);
-
+    public double getHeight(){
+        return height;
     }
+    public void setHeight(double height){
+        this.height = height ;
+    }
+    public double getWeight(){
+        return weight;
+    }
+    public void setWeight(double weight){
+        this.weight = weight ;
+    }
+
+    public double CalculateBMI(){
+        return weight / (height*height);
+    }
+
+
+
+}
+
+public class Q2 {
 
     
 
+    public static void main(String[] args) {
+        Scanner sc  = new Scanner(System.in);
+
+    BMI b =  new BMI(0, 0);
+
+    System.out.print("Enter height in meters: "); 
+    b.setHeight(sc.nextDouble());
+     System.out.print("Enter weight in kg: "); 
+     b.setWeight(sc.nextDouble());
+
+
+     System.out.println("BMI = "+ b.CalculateBMI());
     }
 
-public class Q2 {
    
 
-    public static void main(String[] args) {
 
-        Rectangle R1 = new Rectangle(10, 20);
-        System.out.println("area "+R1.calculateArea());
-        System.out.println("area "+R1.calculatePerimeter());
-
-    }
+    
 
 
+    
 }

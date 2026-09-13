@@ -1,25 +1,79 @@
 package Assignment_3;
-
+ 
 class Book {
-    String title;
-    String author;
-    double price; // Changed from int to double
+    private  String title , author , publisher , isbn ;
+    private int year , quantity ;
+    private double price;
 
-    Book(String title, String author, double price) { // Fixed spelling and type
-        this.title = title;
-        this.author = author;
-        this.price = price;
+    Book(String title , String author , String publisher , String isbn ,int year , double price  , int quantity){
+
+                      this.year = year;
+                      this.title = title;
+                      this.publisher = author;
+                      this.publisher = publisher ;
+                      this.isbn = isbn ;
+                      this.year = year ;
+                      this.price = price ;
+                      this.quantity = quantity ;
+                      
+
+
     }
+
+       public String getTitle() { return title; } 
+       public void setTitle(String title) { this.title = title; }
+       public String getAuthor() { return author; }
+       public void setAuthor(String author) { this.author = author; }
+       public String getPublisher() { return publisher; } 
+       public void setPublisher(String publisher) { this.publisher = publisher; } 
+       public String getIsbn() { return isbn; } 
+       public void setIsbn(String isbn) { this.isbn = isbn; } 
+       public int getYear() { return year; } 
+       public void setYear(int year) { this.year = year; } 
+       public double getPrice() { return price; } 
+       public void setPrice(double price) { this.price = price; } 
+       public int getQuantity() { return quantity; } 
+       public void setQuantity(int quantity) { this.quantity = quantity; }
+
+
+
+
+       public void increaseQunatity(int q){
+        quantity += q ;
+
+       }
+       public void decreaseQuantity(int q){
+        quantity += q ;
+        
+       }
+       public Double getInventoryValue(){
+        return  price*quantity;
+        
+       }
+
+
+
+
+    
+
 }
 
 public class Q3 {
+    
     public static void main(String[] args) {
-        Book b1 = new Book("One Piece", "Eiichiro Oda", 0);
-        Book b2 = new Book("1984", "George Orwell", 12.50);
-        Book b3 = new Book("The Great Gatsby", "F. Scott Fitzgerald", 10.95);
-        
-        System.out.println(b1.title + " costs " + b1.price);
-        System.out.println(b2.title + " costs " + b2.price);
-        System.out.println(b3.title + " costs " + b3.price);
+
+
+        Book b = new Book("Java","James","ABC","12345",2024,500,22);
+
+        b.increaseQunatity(5);
+        b.decreaseQuantity(2);
+
+        System.out.println("Inventory Value : "+ b.getInventoryValue());
+
+
+
+
+
+
     }
 }

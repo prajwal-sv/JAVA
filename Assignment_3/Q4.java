@@ -1,27 +1,39 @@
 package Assignment_3;
-class Counter {
-    int count ;
-    static int totalObject  ;
+class ElectricityBill{
+    String customerName;
+    double unitsCounsumed, billAmount ;
 
-    Counter(int count){
-        this.count = count;
-        totalObject++;
+    ElectricityBill(String name , double units){
+            
+        customerName = name ;
+        unitsCounsumed = units ;
+
 
     }
-    void display(){
-        System.out.println("total object count : "+totalObject+"count is "+count);
-    }
+    void calculateBillAmount(){
+        if(unitsCounsumed <= 100)
+                billAmount = unitsCounsumed*5;
+        else if (unitsCounsumed <= 300)
+            billAmount = 100*5+(unitsCounsumed-100)*7;
+        else 
+            billAmount = 100 * 5 + 200*7 + (unitsCounsumed - 300 )*10;
+
+
+
+            }
+
+    
+        
+
 }
 public class Q4 {
-
     public static void main(String[] args) {
-        Counter c1 = new Counter(1);
-        Counter c2 = new Counter(2);
-        Counter c3 = new Counter(3);
+        ElectricityBill b = new ElectricityBill("Rahul", 350);
+        b.calculateBillAmount();
 
-        c1.display();
-        c2.display();
-        c3.display();
+        System.out.println("Coutomer: "+b.customerName);
+        System.out.println("Units "+ b.unitsCounsumed);;
+        System.out.println("Bills "+ b.billAmount);
     }
     
 }
