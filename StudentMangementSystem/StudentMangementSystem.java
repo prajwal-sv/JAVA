@@ -13,13 +13,28 @@ public class StudentMangementSystem {
         String name ,
         int age ,
         String course,
-        float maeks
+        float marks
 
     ) throws InvalidStudentException{
 
         if(id <=0){
-            throw new InvalidStudentException("Id must be garter than 0 ")
+            throw new InvalidStudentException("Id must be garter than 0 ");
+
         }
+        if(name.isBlank()){
+            throw new InvalidStudentException("name cannot be empty");
+
+        }
+        if(age <= 0){
+            throw new InvalidStudentException("age must be garter than 0 ");
+
+        }
+        if(marks<0 || marks > 100){
+            throw new InvalidStudentException("Marks must be between 0 and 100");
+
+        }
+        
+        
     }
 
     public static void deleteStudent(Student[] students , Scanner sc ) {
@@ -193,13 +208,24 @@ if(!found){
          System.out.println("Enter Marks  :");
 
          float marks = sc.nextFloat();
-                
-         students[i] = new Student(id, name, age, course, marks);
 
-         System.out.println("Student was added Succesfuly");
+         try{
+            validateStudent(id, name, age, course, marks);
+            students[i] = new Student(id, name, age, course, marks);
+            System.out.println("Student was added Succesfuly");
 
          return ;
                 
+         }catch(InvalidStudentException e){
+            System.out.println("Invalid student : "+ e.getMessage());
+
+            return ;
+         }
+
+                
+         
+
+         
             }
             
          }
