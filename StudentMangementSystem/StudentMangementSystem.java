@@ -1,5 +1,6 @@
 package StudentMangementSystem;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -17,11 +18,12 @@ public class StudentMangementSystem {
 
     ) throws InvalidStudentException{
 
+
         if(id <=0){
             throw new InvalidStudentException("Id must be garter than 0 ");
 
         }
-        if(name.isBlank()){
+        if(name.isBlank() || name.isBlank()){
             throw new InvalidStudentException("name cannot be empty");
 
         }
@@ -31,6 +33,12 @@ public class StudentMangementSystem {
         }
         if(marks<0 || marks > 100){
             throw new InvalidStudentException("Marks must be between 0 and 100");
+
+        }
+        if (course == null || course.isBlank()) {
+            throw new InvalidStudentException(
+                    "Course cannot be empty"
+            );
 
         }
         
@@ -48,16 +56,19 @@ public class StudentMangementSystem {
 
             System.out.println("Student deleted successfully");
 
-            sc.nextLine();
-
+           return ;
         }
     }
+
+    System.out.println("No Student found");
 
 
     }
 
 
     public static void updateStudents(Student[] students, Scanner sc) {
+
+        try{
 
 
         System.out.println("Enter students Id to update : ");
@@ -66,7 +77,7 @@ public class StudentMangementSystem {
         for (int i = 0; i < students.length; i++) {
         if ( students[i] !=null && students[i].getId()==id){
 
-            sc.nextLine();
+          
 
          System.out.println("Enter new Name  :");
 
@@ -85,19 +96,47 @@ public class StudentMangementSystem {
          System.out.println("Enter new Marks  :");
 
          float marks = sc.nextFloat();
-                
-         students[i] = new Student(id, name, age, course, marks);
 
+        
+
+            validateStudent(id, name, age, course, marks);
+
+         students[i].setName(name);
+         students[i].setAge(age);
+         students[i].setCourse(course);
+         students[i].setMarks(marks);
+         
          System.out.println("Student was updated Succesfuly");
 
          return ;
+        } 
+        
+    
 
 
         }
 
+          System.out.println(
+                    "Student not found."
+            );
+
          
                 
-            }
+            } catch (InputMismatchException e) {
+
+            System.out.println(
+                    "Invalid input! Please enter the correct data type."
+            );
+
+            sc.nextLine();
+
+        } catch (InvalidStudentException e) {
+
+            System.out.println(
+                    "Invalid student: "
+                            + e.getMessage()
+            );
+        }
             
          }
         
@@ -180,6 +219,8 @@ if(!found){
 
          for (int i = 0; i < students.length; i++) {
             if (students[i]==null) {
+
+            try{   
             System.out.println("Enter Id :");
          int id   = sc.nextInt();
 
@@ -209,16 +250,19 @@ if(!found){
 
          float marks = sc.nextFloat();
 
-         try{
+         
             validateStudent(id, name, age, course, marks);
             students[i] = new Student(id, name, age, course, marks);
             System.out.println("Student was added Succesfuly");
 
          return ;
                 
-         }catch(InvalidStudentException e){
+         } catch(InvalidStudentException e){
             System.out.println("Invalid student : "+ e.getMessage());
 
+            return ;
+         } catch(InputMismatchException e){
+            System.out.println("Inavlid student : " + e.getMessage());
             return ;
          }
 
@@ -248,7 +292,7 @@ if(!found){
 
         
 
-        int choise ;
+        int choise = 0 ;
 
         do{
             System.out.println("\n===== STUDENT MANAGEMENT =====");
@@ -259,9 +303,19 @@ if(!found){
             System.out.println("5. Delete Student");
             System.out.println("6. Exit");
 
-
+            try {
             System.out.println("Enter the Chosie");
             choise =  sc.nextInt();
+                
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a number!");
+
+                    sc.nextLine(); // clear invalid input
+                    continue;
+            }
+
+
+           
 
             switch (choise) {
                 case 1:
@@ -292,7 +346,7 @@ if(!found){
                 default:
                     System.out.println("Invalid choice");
             }
-        }while (choise!=4);
+        }while (choise!=6);
 
 
         sc.close();
