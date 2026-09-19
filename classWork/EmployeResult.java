@@ -19,6 +19,7 @@ class e{
         System.out.println("Name: " + name); 
         
         System.out.println("Age: " + age);
+        sc.close();
 
     }
     void cal(){
@@ -28,6 +29,7 @@ class e{
 
         salary = (float)(Bs + Bs * 1.27 + Bs * 0.34 + Bs * 0.01);
         System.out.println("Total Slary : "+salary);
+        sc.close();
     }
 
 }
@@ -38,4 +40,6 @@ class EmployeResult {
         emp.cal();
 
     }
+
+    
 }

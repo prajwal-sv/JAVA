@@ -2,7 +2,6 @@ package Assignment_3;
 
 import java.util.Scanner;
 
-import Assignment_1.sum;
 
 class BMI{
     private  double height , weight ;
@@ -48,6 +47,8 @@ public class Q2 {
 
 
      System.out.println("BMI = "+ b.CalculateBMI());
+
+     sc.close();
     }
 
    
