@@ -1,4 +1,4 @@
-package ProductInventoryManagement.main;
+package ProductInventoryManagement.model;
 
 public class Product {
 
