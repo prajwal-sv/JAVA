@@ -30,6 +30,7 @@ public class Main {
 
              System.out.println("Enter your Choise");
             choice = scanner.nextInt();
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -113,31 +114,45 @@ public class Main {
                     
                     break;
                 case 6:
+                    System.out.println("Sort Produt by Name");
+                    manager.sortByProdutName();
+                    manager.viewAllProduct();
                     
                     break;
                 case 7:
+                    manager.sortByCategory();
+                    manager.viewAllProduct();
                     
                     break;
                 case 8:
+                    manager.sortByPrice();
+                    manager.viewAllProduct();
                     
                     break;
                 case 9:
+                    manager.sortByRating();
+                    manager.viewAllProduct();
                     
                     break;
                 case 10:
-                    
+                    manager.sortById();
+                    manager.viewAllProduct();
                     break;
                 case 11:
+                    System.out.println("Exiting the System. Goodbye!");
+
                     
                     break;
             
                 default:
-                    break;
+                     System.out.println("Invalid choice. Please choose between 1 and 11.");
+                    
             }
 
 
             
-        } while (choice == 9);
+        } while (choice != 11);
+        scanner.close();
     }
     
 }
