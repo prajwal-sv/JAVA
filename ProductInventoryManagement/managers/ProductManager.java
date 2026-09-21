@@ -1,109 +1,103 @@
 package ProductInventoryManagement.managers;
 
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 
 import ProductInventoryManagement.model.Product;
 
 public class ProductManager extends ProductOperations{
 
-    ArrayList<Product> ProductList = new ArrayList<>();
+    private HashMap<Integer,Product> ProductList = new HashMap<>();
 
     @Override
-    public boolean addProduct(Product product) {
+    public void addProduct(Product product) {
         // TODO Auto-generated method stub
-        if (searchProductById(product.getProductId()) == product) {
+        if (ProductList.containsKey(product.getProductId())) {
 
-            System.out.println("Produt already listed");
-
-            return false ;
+            throw new IllegalArgumentException("Produt With id :"+product.getProductId());
             
         }
-        ProductList.add(product);
-        
-        return true;
+        ProductList.put(product.getProductId(), product);
     }
     @Override
     public void viewAllProduct() {
         // TODO Auto-generated method stub
-        if (ProductList.isEmpty()) {
+        printProducts(new ArrayList<>(ProductList.values()));
+        
+        
+    }
+    public void printProducts(List<Product> list){
+        if (list.isEmpty()) {
             System.out.println("no produt in list ");
             return ;
         }
-        for (Product product : ProductList) {
-         System.out.println(product);
-
-         
-        }
-        
+        list.forEach(System.out::println);
     }
     @Override
-    public boolean updateProduct(int productId, String productName, String category, double price, int quantity,
+    public void  updateProduct(int productId, String productName, String category, double price, int quantity,
             double rating) {
-        // TODO Auto-generated method stub
-        for (Product product : ProductList) {
-            if (product.getProductId() == productId) {
-
-                product.setPrice(price);
-                product.setCategory(category);
-                product.setProductName(productName);
-                product.setQuantity(quantity);
-                product.setRating(rating);
-
-                return true ;
-                
-            }
-        }
-
-       
-        return false;
+       Product p = searchProductById(productId);
+       p.setProductName(productName);
+       p.setCategory(category);
+       p.setPrice(price);
+       p.setQuantity(quantity);
+       p.setRating(rating);
+        
     }
     @Override
     public Product searchProductById(int productId) {
         // TODO Auto-generated method stub
-        for (Product product : ProductList) {
-            if (product.getProductId() == productId) {
-                return product ;
-                
-                
-            }
+        Product p = ProductList.get(productId);
+        if (p==null) {
+            throw new IllegalArgumentException("Produt with Id : "+productId+"Not found");
         }
-        return null;
+        return p;
+    
+        
     }
     @Override
-    public boolean deleteProduct(int productId) {
+    public void deleteProduct(int productId) {
         // TODO Auto-generated method stub
-        Product p = searchProductById(productId);
-         if (p !=null) {
-            return ProductList.remove(p);
-         }
-        
-        return false;
+       searchProductById(productId);
+       ProductList.remove(productId);
     }
 
-    public void sortByPrice(){
-        Collections.sort(ProductList , Comparator.comparingDouble(Product::getPrice));
+    public List<Product> sortByPrice(){
+        // Collections.sort(ProductList , Comparator.comparingDouble(Product::getPrice));
+        List<Product> list = new ArrayList<>(ProductList.values());
+        list.sort(Comparator.comparingDouble(Product::getPrice));
+        return list ;
 
     }
-    public void sortByProdutName(){
-        Collections.sort(ProductList,(p1,p2)->p1.getProductName().compareToIgnoreCase(p2.getProductName()));
+    public List<Product>  sortByProdutName(){
+        List<Product> list = new ArrayList<>(ProductList.values());
+        list.sort((a,b)->a.getProductName().compareToIgnoreCase(b.getProductName()));
+        return list ;
+       
     }
-    public void sortByRating(){
-         Collections.sort(ProductList,(p1,p2)->Double.compare(p2.getRating(),p1.getRating()));
+    public List<Product>  sortByRating(){
+        List<Product> list = new ArrayList<>(ProductList.values());
+        list.sort((a,b)->Double.compare(b.getRating(),a.getRating()));
+        return list ;
         
     }
-    public void sortById(){
-        Collections.sort(ProductList , Comparator.comparingInt(Product::getProductId));
+    public List<Product> sortById(){
+        List<Product> list = new ArrayList<>(ProductList.values());
+        list.sort(Comparator.comparingInt(Product::getProductId));
+        return list ;
         
     }
-    public void sortByCategory(){
-        Collections.sort(ProductList,(p1,p2)->p1.getCategory().compareToIgnoreCase(p2.getCategory()));
-        
-    }
+    public List<Product>  sortByCategory(){
+        List<Product>  list = new ArrayList<>(ProductList.values());
+        list.sort((a,b)->a.getCategory().compareToIgnoreCase(b.getCategory()));
+        return list;
 
     
 
 
     
+}
 }

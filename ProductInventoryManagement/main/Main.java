@@ -48,13 +48,8 @@ public class Main {
                     System.out.println("enter rating");
                     double rating = scanner.nextDouble();
 
-                    Product newProduct = new Product(id, name, Category, price, quantity, rating);
-
-                    if (manager.addProduct(newProduct)) {
-                        System.out.println("PRodut in added ");
-                        
-                    }
-
+                    manager.addProduct(new Product(id, name, Category, price, quantity, rating)); 
+                    System.out.println("Produt added");
                     break;
                 case 2:
                     System.out.println("ALl Produt ");
@@ -106,37 +101,27 @@ public class Main {
                     System.out.println("enter the produt id for delete");
                     int iddel = scanner.nextInt();
 
-                    if (manager.deleteProduct(iddel)) {
-                        System.out.println("produt delted");
-                        
-                    }else{
-                        System.out.println("produt not found ");}
-                    
+                    manager.deleteProduct(iddel);
+                    System.out.println("");
                     break;
                 case 6:
                     System.out.println("Sort Produt by Name");
-                    manager.sortByProdutName();
-                    manager.viewAllProduct();
-                    
+                    manager.printProducts(manager.sortByProdutName());
                     break;
                 case 7:
-                    manager.sortByCategory();
-                    manager.viewAllProduct();
+
+                    manager.printProducts(manager.sortByCategory());
                     
                     break;
                 case 8:
-                    manager.sortByPrice();
-                    manager.viewAllProduct();
-                    
+                    manager.printProducts(manager.sortByPrice());
                     break;
                 case 9:
-                    manager.sortByRating();
-                    manager.viewAllProduct();
+                    manager.printProducts(manager.sortByRating());
                     
                     break;
                 case 10:
-                    manager.sortById();
-                    manager.viewAllProduct();
+                    manager.printProducts(manager.sortById());
                     break;
                 case 11:
                     System.out.println("Exiting the System. Goodbye!");

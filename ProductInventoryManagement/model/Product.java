@@ -28,6 +28,7 @@ private double rating;
   }public double getPrice() {
       return price;
   }public void setPrice(double price) {
+    if (price < 0 ) throw new IllegalArgumentException("Price not be negative ") ;
       this.price = price;
   }public int getProductId() {
       return productId;
@@ -40,10 +41,14 @@ private double rating;
   }public int getQuantity() {
       return quantity;
   }public void setQuantity(int quantity) {
+    if (quantity < 0) throw new IllegalArgumentException("Quantity cannot be negative");
       this.quantity = quantity;
   }public double getRating() {
+    
       return rating;
   }public void setRating(double rating) {
+    
+if (rating < 0 || rating > 5 ) throw new IllegalArgumentException(" rating not be negative or garter than 5 ") ;
       this.rating = rating;
   }
 
